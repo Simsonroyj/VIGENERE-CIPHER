@@ -30,7 +30,60 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
 ## PROGRAM
+```
 
+#include <stdio.h>
+#include <string.h>
+
+// Encryption
+void vigenereEncrypt(char *text, const char *key) {
+    int keyLen = strlen(key);
+
+    for (int i = 0; text[i] != '\0'; i++) {
+        char c = text[i];
+
+        if (c >= 'A' && c <= 'Z') {
+            text[i] = ((c - 'A' + key[i % keyLen] - 'A') % 26) + 'A';
+        }
+        else if (c >= 'a' && c <= 'z') {
+            text[i] = ((c - 'a' + key[i % keyLen] - 'A') % 26) + 'a';
+        }
+    }
+}
+
+// Decryption
+void vigenereDecrypt(char *text, const char *key) {
+    int keyLen = strlen(key);
+
+    for (int i = 0; text[i] != '\0'; i++) {
+        char c = text[i];
+
+        if (c >= 'A' && c <= 'Z') {
+            text[i] = ((c - 'A' - (key[i % keyLen] - 'A') + 26) % 26) + 'A';
+        }
+        else if (c >= 'a' && c <= 'z') {
+            text[i] = ((c - 'a' - (key[i % keyLen] - 'A') + 26) % 26) + 'a';
+        }
+    }
+}
+
+int main() {
+    const char *key = "KEY";
+    char message[] = "SIMSON";
+
+    vigenereEncrypt(message, key);
+    printf("Encrypted Message: %s\n", message);
+
+    vigenereDecrypt(message, key);
+    printf("Decrypted Message: %s\n", message);
+
+    return 0;
+}
+
+```
 ## OUTPUT
+<img width="396" height="193" alt="Screenshot 2026-10-30 140214" src="https://github.com/user-attachments/assets/fa42956e-41b5-40dc-9504-129cb8d729d4" />
+
 
 ## RESULT
+The program has successfully executed
